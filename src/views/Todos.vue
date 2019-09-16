@@ -24,7 +24,7 @@
     },
     data: function () {
       return {
-        todos: []
+        todos: this.loadTodos(),
       }
     },
     methods: {
@@ -40,7 +40,15 @@
           done: false,
         };
         this.todos.push(item);
+        this.saveTodos();
       },
+      saveTodos() {
+        localStorage.setItem('todos', JSON.stringify(this.todos));
+      },
+      loadTodos() {
+        let todos = localStorage.getItem('todos');
+        return todos ? JSON.parse(todos) : [];
+      }
     },
   }
 </script>
