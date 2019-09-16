@@ -2,6 +2,7 @@
   <li class="todo-item">
     <input class="todo-checkbox" type="checkbox" @input="markDone">
     {{ todo.text }}
+    <button class="delete-btn" @click="deleteTodo">Delete</button>
   </li>
 </template>
 
@@ -13,6 +14,9 @@
     methods: {
       markDone() {
         this.$emit('todoDone', this.todo.id);
+      },
+      deleteTodo() {
+        this.$emit('deleteTodo', this.todo.id);
       }
     }
   }
@@ -33,6 +37,14 @@
       font-size: 1.5em;
       position: absolute;
       left: 5px;
+    }
+
+    .delete-btn {
+      font-size: .8em;
+      position: absolute;
+      right: 5px;
+      border: 1px solid #222;
+      border-radius: .4em;
     }
   }
 
