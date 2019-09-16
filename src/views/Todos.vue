@@ -4,7 +4,7 @@
     <TodoList :todos="todos">
       <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" @todoDone="doneTodo" />
     </TodoList>
-    <CreateTodoItemForm />
+    <CreateTodoItemForm @createItem="createItem" />
   </section>
 </template>
 
@@ -24,32 +24,23 @@
     },
     data: function () {
       return {
-        todos: [
-          {
-            id: 1,
-            text: 'Some todo 1',
-            done: false,
-          },
-          {
-            id: 2,
-            text: 'Some todo 2',
-            done: false,
-          },
-          {
-            id: 3,
-            text: 'Some todo 3',
-            done: false,
-          },
-        ]
+        todos: []
       }
     },
     methods: {
       doneTodo(todoId) {
-        let index = this.todos.findIndex(todo => todo.id === todoId)
+        let index = this.todos.findIndex(todo => todo.id === todoId);
         this.todos[index].done = this.todos[index].done ? false : true;
+      },
 
-        console.log(JSON.stringify(this.todos));
-      }
+      createItem(todoText) {
+        let item = {
+          id: this.todos.length + 1,
+          text: todoText,
+          done: false,
+        };
+        this.todos.push(item);
+      },
     },
   }
 </script>

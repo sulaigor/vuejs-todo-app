@@ -16,7 +16,14 @@
     },
     methods: {
       createItem() {
-        this.$emit('createItem', this.inputText)
+        if(this.inputText.length > 0)
+        {
+          this.$emit('createItem', this.inputText);
+          this.clearInputText();
+        }
+      },
+      clearInputText() {
+        this.inputText = '';
       }
     }
   }
@@ -28,10 +35,10 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-bottom: 2em;
+    margin: 2em 0;
 
     .form-label {
-
+      color: #805DEE;
     }
 
     .form-input {
