@@ -3,7 +3,7 @@
     <BaseHeadline text="Todos list here" />
     <TodoList :todos="todos">
       <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo"
-                @todoDone="doneTodo"
+                @markDone="doneTodo"
                 @deleteTodo="deleteTodo"
       />
     </TodoList>
@@ -28,12 +28,18 @@
     data: function () {
       return {
         todos: this.loadTodos(),
+        doneTodos: this.loadTodos('doneTodos'),
       }
     },
     methods: {
       doneTodo(todoId) {
-        let index = this.todos.findIndex(todo => todo.id === todoId);
-        this.todos[index].done = this.todos[index].done ? false : true;
+        let currentTodo = this.todos.filter(todo => todo.id === todoId)[0];
+        this.todos = this.todos.filter(todo => todo.id !== todoId);
+        currentTodo.done = true;
+        currentTodo.id = this.doneTodos.length + 1;
+        this.doneTodos.push(currentTodo);
+        this.saveTodos();
+        this.saveDoneTodos();
       },
 
       deleteTodo(todoId) {
@@ -55,8 +61,12 @@
         localStorage.setItem('todos', JSON.stringify(this.todos));
       },
 
-      loadTodos() {
-        let todos = localStorage.getItem('todos');
+      saveDoneTodos() {
+        localStorage.setItem('doneTodos', JSON.stringify(this.doneTodos));
+      },
+
+      loadTodos(todosName = 'todos') {
+        let todos = localStorage.getItem(todosName);
         return todos ? JSON.parse(todos) : [];
       }
     },

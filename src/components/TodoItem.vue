@@ -13,7 +13,7 @@
     },
     methods: {
       markDone() {
-        this.$emit('todoDone', this.todo.id);
+        this.$emit('markDone', this.todo.id);
       },
       deleteTodo() {
         this.$emit('deleteTodo', this.todo.id);
