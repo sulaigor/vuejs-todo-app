@@ -10,9 +10,6 @@
     components: {
 
     },
-    props: {
-      todos: Array,
-    },
     methods: {
 
     }

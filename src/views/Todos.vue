@@ -1,7 +1,7 @@
 <template>
   <section class="home">
     <BaseHeadline text="Todos list here" />
-    <TodoList :todos="todos">
+    <TodoList>
       <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo"
                 @markDone="doneTodo"
                 @deleteTodo="deleteTodo"
@@ -37,6 +37,7 @@
         this.todos = this.todos.filter(todo => todo.id !== todoId);
         currentTodo.done = true;
         currentTodo.id = this.doneTodos.length + 1;
+        currentTodo.doneAt = new Date().toLocaleDateString();
         this.doneTodos.push(currentTodo);
         this.saveTodos();
         this.saveDoneTodos();
